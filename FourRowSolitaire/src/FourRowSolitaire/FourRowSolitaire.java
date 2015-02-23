@@ -19,6 +19,8 @@
 
 package FourRowSolitaire;
 
+/*Comment */
+
 import java.awt.Desktop;
 import java.awt.event.*;
 import java.io.*;
