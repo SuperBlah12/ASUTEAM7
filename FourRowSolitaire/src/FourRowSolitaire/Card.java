@@ -327,6 +327,12 @@ public class Card extends JComponent
         location = source;
     }
 
+    public int getDeckNumber()
+
+    {
+        return deckNumber;
+    }
+    
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
