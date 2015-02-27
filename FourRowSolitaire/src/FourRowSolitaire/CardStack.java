@@ -21,7 +21,6 @@ package FourRowSolitaire;
 
 import java.awt.*;
 import java.util.Vector;
-
 import javax.swing.JLayeredPane;
 
 /**
@@ -75,12 +74,12 @@ public class CardStack extends JLayeredPane
 
     public synchronized Card pop()
     {
-		Card card = peek();
-	
-	    this.remove(card);
-		cards.remove(cards.size() - 1);
-	
-		return card;
+    	Card card = peek();
+
+        this.remove(card);
+        cards.remove(cards.size() - 1);
+
+        return card;
     }
 
     public CardStack pop(CardStack stack)
@@ -100,56 +99,32 @@ public class CardStack extends JLayeredPane
 
     public synchronized Card peek()
     {
-	if (cards.isEmpty())
+    	if (cards.isEmpty())
         {
             return null;
         }
-	
-		return cards.lastElement();
+
+    	return cards.lastElement();
     }
-    
-    @Override
-    public boolean equals(Object stack)
-    {
-    	if(stack == null)
-    		return false;
-    	if (!(stack instanceof CardStack))
-    		return false;
-    	else
-			if(((CardStack) stack).length() != this.length())
-				return false;
-			int length = this.length();
-			int match = 0;
-			//Copy stacks to maintain integrity
-			Object temp1 = stack;
-			CardStack temp2 = this;
-			//count number of equal cards
-			while(!((CardStack) temp1).isEmpty())
-			{
-				if(((CardStack) temp1).pop().equals(temp2.pop()))
-					match++;
-			}
-			return (match == length);
-	}
 
     public boolean isEmpty()
     {
-    	return cards.size() == 0;
+	return cards.size() == 0;
     }
 
     public int length()
     {
         return cards.size();
     }
-    
+
     public synchronized int search(Card card)
     {
-		int i = cards.lastIndexOf(card);
-	
+    	int i = cards.lastIndexOf(card);
+
 		if (i >= 0)
-	    {
-		    return cards.size() - i;
-	    }
+        {
+	    return cards.size() - i;
+        }
 
 		return -1;
     }
@@ -212,6 +187,7 @@ public class CardStack extends JLayeredPane
                 return false;
             }
         }
+
         return true;
     }
 
@@ -248,9 +224,9 @@ public class CardStack extends JLayeredPane
     public CardStack getStack(int numCards)
     {
         CardStack temp = new CardStack();
-        int index = length() - numCards;
+        int index = numCards;
 
-        for(int i = length(); i > index; i--)
+        for(int i = 0; i < index; i++)
         {
             temp.push(getCardAtLocation(cards.size() - i - 1).clone());
             getCardAtLocation(cards.size() - i - 1).highlight();

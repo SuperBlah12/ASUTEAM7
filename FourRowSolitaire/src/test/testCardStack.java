@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import FourRowSolitaire.Card;
 import FourRowSolitaire.CardStack;
+import FourRowSolitaire.Column;
 
 public class testCardStack {
 
@@ -63,6 +64,18 @@ public class testCardStack {
 	}
 	
 	@Test
+	public void testPush()
+	{
+		CardStack actual = new CardStack();
+		actual.push(standard);
+		assertEquals(rStandard.pop(),actual.pop());//First Card
+		assertEquals(rStandard.pop(),actual.pop());//Second Card
+		assertEquals(rStandard.pop(),actual.pop());//Third Card
+		assertEquals(rStandard.pop(),actual.pop());//Fourth Card
+		assertEquals(rStandard.pop(),actual.pop());//Fifth Card
+	}
+	
+	@Test
 	public void testPop() 
 	{
 		//Cards to be popped
@@ -78,15 +91,9 @@ public class testCardStack {
 		//get Actual
 		CardStack actual = standard.pop(temp);
 		//Test Values
-		assertEquals(expected,actual);
-	}
-
-	@Test
-	public void testPush()
-	{
-		CardStack actual = new CardStack();
-		actual.push(standard);
-		assertEquals(rStandard,actual);
+		assertEquals(expected.pop(),actual.pop());//First Card
+		assertEquals(expected.pop(),actual.pop());//Second Card
+		assertEquals(expected.pop(),actual.pop());//Third Card
 	}
 	
 	@Test
@@ -134,7 +141,9 @@ public class testCardStack {
 		expected.addCard(new Card("Hearts",3,1,42));
 		expected.addCard(new Card("Clubs",4,1,17));
 		CardStack actual = standard.getStack(fourClubs);
-		assertEquals(expected,actual);
+		assertEquals(expected.pop(),actual.pop());//First Card
+		assertEquals(expected.pop(),actual.pop());//Second Card
+		assertEquals(expected.pop(),actual.pop());//Third Card
 	}
 	
 	@Test
@@ -145,6 +154,55 @@ public class testCardStack {
 		expected.addCard(new Card("Hearts",3,1,42));
 		expected.addCard(new Card("Clubs",4,1,17));
 		CardStack actual = standard.getStack(3);
-		assertEquals(expected,actual);
+		assertEquals(expected.pop(),actual.pop());//First Card
+		assertEquals(expected.pop(),actual.pop());//Second Card
+		assertEquals(expected.pop(),actual.pop());//Third Card
 	}
+	
+	@Test
+	public void testGetAvailCardsStandard()
+	{
+		Column tempColumn = new Column();
+		tempColumn.addCard(rStandard.pop());
+		tempColumn.addCard(rStandard.pop());
+		tempColumn.addCard(rStandard.pop());
+		tempColumn.addCard(rStandard.pop());
+		tempColumn.addCard(rStandard.pop());
+		CardStack actual = tempColumn.getAvailableCards();
+		setup();
+		assertEquals(rStandard.pop(),actual.pop());
+		assertEquals(rStandard.pop(),actual.pop());
+		assertEquals(rStandard.pop(),actual.pop());
+		assertEquals(rStandard.pop(),actual.pop());
+		assertEquals(rStandard.pop(),actual.pop());
+	}
+	
+	@Test
+	public void testGetAvailCardsColored()
+	{
+		Column tempColumn = new Column();
+		tempColumn.addCard(rColored.pop());
+		tempColumn.addCard(rColored.pop());
+		tempColumn.addCard(rColored.pop());
+		tempColumn.addCard(rColored.pop());
+		tempColumn.addCard(rColored.pop());
+		CardStack actual = tempColumn.getAvailableCards();
+		assertEquals(colored.pop(),actual.pop());
+		assertEquals(null,actual.peek());
+	}
+	
+	@Test
+	public void testGetAvailCardsNumbered()
+	{
+		Column tempColumn = new Column();
+		tempColumn.addCard(rNumbered.pop());
+		tempColumn.addCard(rNumbered.pop());
+		tempColumn.addCard(rNumbered.pop());
+		tempColumn.addCard(rNumbered.pop());
+		tempColumn.addCard(rNumbered.pop());
+		CardStack actual = tempColumn.getAvailableCards();
+		assertEquals(numbered.pop(),actual.pop());
+		assertEquals(null,actual.peek());
+	}
+	
 }
