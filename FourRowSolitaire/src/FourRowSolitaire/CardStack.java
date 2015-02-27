@@ -21,6 +21,7 @@ package FourRowSolitaire;
 
 import java.awt.*;
 import java.util.Vector;
+
 import javax.swing.JLayeredPane;
 
 /**
@@ -74,12 +75,12 @@ public class CardStack extends JLayeredPane
 
     public synchronized Card pop()
     {
-	Card card = peek();
-
-        this.remove(card);
-	cards.remove(cards.size() - 1);
-
-	return card;
+		Card card = peek();
+	
+	    this.remove(card);
+		cards.remove(cards.size() - 1);
+	
+		return card;
     }
 
     public CardStack pop(CardStack stack)
@@ -103,30 +104,54 @@ public class CardStack extends JLayeredPane
         {
             return null;
         }
-
-	return cards.lastElement();
+	
+		return cards.lastElement();
     }
+    
+    @Override
+    public boolean equals(Object stack)
+    {
+    	if(stack == null)
+    		return false;
+    	if (!(stack instanceof CardStack))
+    		return false;
+    	else
+			if(((CardStack) stack).length() != this.length())
+				return false;
+			int length = this.length();
+			int match = 0;
+			//Copy stacks to maintain integrity
+			Object temp1 = stack;
+			CardStack temp2 = this;
+			//count number of equal cards
+			while(!((CardStack) temp1).isEmpty())
+			{
+				if(((CardStack) temp1).pop().equals(temp2.pop()))
+					match++;
+			}
+			return (match == length);
+	}
 
     public boolean isEmpty()
     {
-	return cards.size() == 0;
+    	return cards.size() == 0;
     }
 
     public int length()
     {
         return cards.size();
     }
-
+    
     public synchronized int search(Card card)
     {
-	int i = cards.lastIndexOf(card);
+		int i = cards.lastIndexOf(card);
+	
+		if (i >= 0)
+	    {
+		    return cards.size() - i;
+	    }
 
-	if (i >= 0)
-        {
-	    return cards.size() - i;
-	}
-
-	return -1;
+		return -1;
     }
 
     public Card getCardAtLocation(int index)
@@ -171,7 +196,7 @@ public class CardStack extends JLayeredPane
     }
 
     //Verifies that the card is a part of a valid stack
-    private boolean isValidCard(int index)
+    public boolean isValidCard(int index)
     {
         if(index >= cards.size())
         {
@@ -187,7 +212,6 @@ public class CardStack extends JLayeredPane
                 return false;
             }
         }
-
         return true;
     }
 

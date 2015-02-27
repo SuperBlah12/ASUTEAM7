@@ -297,6 +297,21 @@ public class Card extends JComponent
         return image;
     }
 
+    @Override
+    public boolean equals(Object card)
+    {
+    	if(card == null)
+    		return false;
+    	if(!(card instanceof Card))
+    		return false;
+    	if((this.cardSuit == ((Card) card).getSuit())&&
+    			(this.cardNumber == ((Card) card).getNumber())&&
+    			(this.fullCardNumber == ((Card) card).getFullNumber()))
+    		return true;
+    	else
+    		return false;
+    }
+    
     public int getNumber()
     {
         return cardNumber;
