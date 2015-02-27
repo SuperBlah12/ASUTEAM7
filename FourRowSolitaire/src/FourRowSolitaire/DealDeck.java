@@ -194,13 +194,13 @@ public class DealDeck extends CardStack
 
             discardPile.repaint();
             numTimesThroughDeck++;
+            if(numTimesThroughDeck >= deckThroughLimit)
+            	redealable = false;
         }
-        else if(numTimesThroughDeck >= deckThroughLimit)
+        else if(!redealable)
         {
-            redealable = false;
             JOptionPane.showMessageDialog(null, "You have reached your deck through limit.");
         }
-
         this.repaint();
         return null;
     }
